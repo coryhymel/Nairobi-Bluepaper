@@ -1,0 +1,6 @@
+# Ignore everything by default
+*
+
+# ...except the HTML page and this ignore file
+!index.html
+!.gitignore
