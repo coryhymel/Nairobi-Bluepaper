@@ -659,7 +659,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
     <div class="narrow fade">
       <p class="lead">AI coding tools stopped being autocomplete some time ago. They read
         repositories, edit files, run commands, call other tools, and check their own work. Working
-        with one is a different skill from writing code.</p>
+        with one is an entirely different skill from writing code.</p>
 
       <p>The skills that matter now sit around the agent rather than inside it. Someone has to
         design the intent, expose the right context, decide what the agent is allowed to touch,
@@ -1216,7 +1216,7 @@ var ITEMS = [
     "Done When — the agent has no clear verification criteria"
   ],
   correct: 3,
-  principle: "\"Done When\" specifies tests, checks, and expected behavior — without it, the agent has no objective signal of completion and will declare done at the first plausible stopping point.",
+  principle: "\"Done When\" specifies tests, checks, and expected behavior and without it, the agent has no objective signal of completion and will declare done at the first plausible stopping point.",
   pre: 61.0, post: 87.8,
   delta: 26.8,
   trans: { wc: 13, cw: 2, sc: 23, sw: 3 }
@@ -1233,7 +1233,7 @@ var ITEMS = [
     "Add a structured table of contents so the agent can navigate to relevant sections efficiently"
   ],
   correct: 1,
-  principle: "AGENTS.md should be brief and actionable — commands, paths, rules, and pitfalls. Rationale and history dilute signal and degrade agent performance.",
+  principle: "AGENTS.md should be brief and actionable with explicity commands, paths, rules, and pitfalls. Rationale and history dilute signal and degrade agent performance.",
   pre: 58.5, post: 90.2,
   delta: 31.7,
   trans: { wc: 13, cw: 0, sc: 24, sw: 4 }
@@ -1250,7 +1250,7 @@ var ITEMS = [
     "A skill that chains all three steps with an automation to trigger the chain nightly"
   ],
   correct: 0,
-  principle: "Each team-defaults layer serves a distinct role — MCPs connect external tools, skills package repeatable workflows, automations schedule recurring tasks.",
+  principle: "Each team-defaults layer serves a distinct role: MCPs connect external tools, skills package repeatable workflows, automations schedule recurring tasks.",
   pre: 73.2, post: 87.8,
   delta: 14.6,
   trans: { wc: 8, cw: 2, sc: 28, sw: 3 }
@@ -1267,7 +1267,7 @@ var ITEMS = [
     "Outbound network calls require setting the approval policy to never — with on-request, Codex pauses before each network call and the request times out waiting for input"
   ],
   correct: 2,
-  principle: "The default sandbox (workspace-write) allows writes within the working directory but blocks network access — a common surprise for developers who expect agents to reach external APIs out of the box.",
+  principle: "The default sandbox (workspace-write) allows writes within the working directory but blocks network access and a common surprise for developers who expect agents to reach external APIs out of the box.",
   pre: 51.2, post: 90.2,
   delta: 39.0,
   trans: { wc: 18, cw: 2, sc: 19, sw: 2 }
@@ -1284,7 +1284,7 @@ var ITEMS = [
     "Role names map to different underlying models — `explorer` uses a faster model tuned for code traversal"
   ],
   correct: 1,
-  principle: "Specialized agent roles encode reusable configuration — the case for them is capability fit and reusability, not parallelism, sandbox inheritance, or model routing.",
+  principle: "Specialized agent roles encode reusable configuration and the case for them is capability fit and reusability, not parallelism, sandbox inheritance, or model routing.",
   pre: 58.5, post: 70.7,
   delta: 12.2,
   trans: { wc: 8, cw: 3, sc: 21, sw: 9 }
@@ -1369,7 +1369,7 @@ var ITEMS = [
     "Configure each agent with a tighter [sandbox_workspace_write] scoped to a different subdirectory of the repo, so agents can only edit their assigned area"
   ],
   correct: 0,
-  principle: "Worktrees are the structural enabler for parallel agent work — isolated branches per task, normal PR review at the end. The other options either serialize the work, duplicate the repo, or artificially partition the codebase in ways that don't match real refactor scope.",
+  principle: "Worktrees are the structural enabler for parallel agent work with isolated branches per task, normal PR review at the end. The other options either serialize the work, duplicate the repo, or artificially partition the codebase in ways that don't match real refactor scope.",
   pre: 70.7, post: 87.8,
   delta: 17.1,
   trans: { wc: 8, cw: 1, sc: 28, sw: 4 }
