@@ -91,7 +91,7 @@ section{padding:86px 0}
   text-transform:uppercase;color:var(--accent-text);margin-bottom:12px}
 .kicker{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
 h2.head{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,42px);margin-bottom:18px;max-width:22ch}
-h2.head.wide{max-width:30ch}
+h2.head.wide{max-width:36ch}
 h3.sub{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.4vw,25px);margin:38px 0 12px}
 .lead{font-size:20px;line-height:1.55;color:var(--dark-green-black);max-width:71ch}
 .narrow{max-width:84ch}
@@ -259,79 +259,10 @@ p+p{margin-top:17px}
 </style>
 <style>
 /* ============================================================
-   GUESS THE GAIN  (BUILD_PLAN 7.1)
-   The axis runs 0-100. The range input occupies only the right
-   60% of it, because guesses are constrained to 40-100. Marker
-   positions are computed in JS as calc() strings that reproduce
-   the native thumb inset, so the "you" handle lines up exactly
-   with the fixed pre/post markers.
-   ============================================================ */
-.guess{border:1px solid var(--line);border-radius:16px;background:var(--white);
-  padding:30px 30px 26px;box-shadow:0 12px 34px rgba(16,41,44,.06);margin-top:34px}
-.guess h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.6vw,26px);margin-bottom:8px}
-.guess .gq{font-size:15.5px;color:var(--body);max-width:62ch}
-/* Vertical stack inside .grail, top to bottom:
-     0-18   cohort pin labels        (Before reads leftward, After rightward,
-                                      so they cannot collide at any spacing)
-     22-44  cohort pin marks         (stop at the rail, clear of the thumb)
-     44-52  the rail itself          (thumb travel is centred on it)
-     64-80  the reader's guess label (below the rail, never over a pin)
-     86-108 tick labels                                                        */
-.grail{position:relative;margin:44px 0 0;height:110px}
-.gaxis{position:absolute;left:0;right:0;top:44px;height:8px;border-radius:5px;
-  background:var(--lighter-green-black)}
-.gaxis .locked{position:absolute;left:0;width:40%;top:0;bottom:0;border-radius:5px 0 0 5px;
-  background:repeating-linear-gradient(135deg,var(--lightest-green-black) 0 6px,var(--lighter-green-black) 6px 12px)}
-.gticks{position:absolute;left:0;right:0;top:86px;height:22px}
-.gtick{position:absolute;transform:translateX(-50%);font-size:11.5px;color:var(--sub);
-  font-variant-numeric:tabular-nums}
-.gtick::before{content:"";position:absolute;left:50%;top:-8px;width:1px;height:6px;
-  background:var(--lighter-green-black)}
-.gmark{position:absolute;top:0;width:0;z-index:3}
-.gmark .pin{position:absolute;left:0;top:22px;width:3px;height:22px;border-radius:2px;
-  transform:translateX(-50%)}
-.gmark .lab{position:absolute;left:0;top:0;white-space:nowrap;
-  font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.gmark.pre .pin{background:var(--pre);width:4px}
-.gmark.pre .lab{color:var(--dark-kale);transform:translateX(-100%);padding-right:9px}
-.gmark.post{opacity:0;transition:opacity .5s ease}
-.gmark.post.on{opacity:1}
-.gmark.post .pin{background:var(--post);width:4px}
-.gmark.post .lab{color:var(--accent-text);padding-left:9px}
-.grange{position:absolute;left:40%;width:60%;top:36px;height:24px;margin:0;
-  -webkit-appearance:none;appearance:none;background:transparent;z-index:5;cursor:grab}
-.grange:active{cursor:grabbing}
-.grange::-webkit-slider-runnable-track{height:24px;background:transparent}
-.grange::-moz-range-track{height:24px;background:transparent}
-.grange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;
-  margin-top:-1px;border-radius:50%;background:var(--you);border:3px solid var(--white);
-  box-shadow:0 3px 10px rgba(16,41,44,.34);cursor:grab}
-.grange::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--you);
-  border:3px solid var(--white);box-shadow:0 3px 10px rgba(16,41,44,.34);cursor:grab}
-.grange:focus-visible::-webkit-slider-thumb{outline:2px solid var(--emerald);outline-offset:2px}
-.grange:focus-visible::-moz-range-thumb{outline:2px solid var(--emerald);outline-offset:2px}
-/* Anchoring flips near either end so the label never leaves the card. */
-.gyoulab{position:absolute;top:64px;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;
-  font-weight:700;color:var(--you);z-index:4;font-variant-numeric:tabular-nums}
-.gyoulab.at-end{transform:translateX(-100%)}
-.gyoulab.at-start{transform:none}
-.gfoot{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:26px}
-.greveal{margin-top:22px;padding:18px 20px;border-radius:12px;background:var(--lightest-emerald);
-  border-left:3px solid var(--emerald);display:none}
-.greveal.on{display:block}
-.greveal>b{font-weight:600;font-size:20px;color:var(--ink);display:block}
-.greveal p b{color:var(--ink)}
-@media(max-width:640px){
-  .guess{padding:24px 20px 22px}
-  .gmark .lab{font-size:10.5px}
-  .gmark .pct{display:none}          /* the value is already in the copy above */
-  .gtick{font-size:10.5px}
-  .gtick.mid{display:none}           /* keep 40 / 70 / 100 only */
-}
-
-/* ============================================================
    ASSESSMENT ENGINE  (BUILD_PLAN 7.2)
    ============================================================ */
+#assessment .container > .eyebrow,#assessment .container > .head,#assessment .container > .lead{
+  text-align:center;margin-left:auto;margin-right:auto}
 .quiz{border:1px solid var(--lighter-emerald);border-radius:18px;background:var(--white);
   box-shadow:0 18px 46px rgba(16,41,44,.08);padding:34px;margin-top:38px}
 @media(max-width:640px){.quiz{padding:22px 18px;border-radius:14px}}
@@ -634,7 +565,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
   *,*::before,*::after{transition:none!important;animation:none!important}
   /* The headroom overlay prints in whatever state the reader left the toggle in,
      rather than being silently forced on. */
-  .figure,.find,.quiz,.guess,.valcard,.hardcard{break-inside:avoid;box-shadow:none!important;
+  .figure,.find,.quiz,.valcard,.hardcard{break-inside:avoid;box-shadow:none!important;
     border-color:#bbb!important}
   .chartscroll{overflow:visible!important}
   .dumbbell,.dotmatrix{min-width:0!important}
@@ -700,14 +631,12 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
     <rect width="100%" height="100%" fill="url(#sparks)"/>
   </svg>
   <div class="container">
-    <p class="eyebrow">Andela Research · Developer learning</p>
-    <h1>Having the tool is not knowing how to use it</h1>
+    <p class="eyebrow">Andela Research</p>
+    <h1>Access to a coding agent and proficiency with one are not the same thing.</h1>
     <p class="dek">Forty-one professional engineers took two weeks of structured training on
-      agentic coding workflows, and answered the same twelve-question scenario assessment before
-      and after. This is what moved, what did not, and what stayed stubbornly hard.</p>
+      agentic coding workflows and we measured the impact on their proficiency with the tool. This is what moved, what did not, and what stayed stubbornly hard.</p>
     <p class="meta">
-      A pre&ndash;post program evaluation of <b data-n="n"></b> professional developers · 2026<br>
-      Author: <b>Cory Hymel</b> · Head of Research, Andela
+      Author: <b>Cory Hymel</b> - Head of Research, Andela
     </p>
   </div>
 </div>
@@ -720,45 +649,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
     <div class="stat"><b>2 weeks</b><span>of structured instruction, delivered online</span></div>
   </div>
 </div>
-
-<!-- ============================================================ 3 · GUESS THE GAIN -->
-<section id="guess">
-  <div class="container">
-    <p class="eyebrow fade">Before we show you</p>
-    <h2 class="head fade">What would you expect two weeks to be worth?</h2>
-    <p class="lead narrow fade">Forty-one mid- to senior-level engineers, none of them new to
-      software, most of them new to coding agents. They sat a twelve-question test, took the
-      program, and sat the identical test again. Commit to a number before you scroll.</p>
-
-    <div class="guess fade" id="guess-widget">
-      <h3>Where do you think the average landed?</h3>
-      <p class="gq">The cohort averaged <b data-n="prePct"></b>&#37; correct before the program
-        began. Drag the handle to your guess for the post-program average.</p>
-
-      <div class="grail">
-        <div class="gaxis"><span class="locked" aria-hidden="true"></span></div>
-        <div class="gticks" id="g-ticks" aria-hidden="true"></div>
-        <div class="gmark pre" id="g-pre"><span class="lab">Before</span><span class="pin"></span></div>
-        <div class="gmark post" id="g-post"><span class="lab">After</span><span class="pin"></span></div>
-        <span class="gyoulab" id="g-youlab">—</span>
-        <input class="grange" type="range" id="g-range" min="40" max="100" step="1"
-               aria-label="Your guess for the post-program average score, as a percentage">
-      </div>
-
-      <div class="gfoot">
-        <button class="btn" id="g-show">Show me</button>
-        <span class="muted" style="font-size:13.5px">Guesses are limited to 40&ndash;100&#37;.
-          Arrow keys nudge by one point, Shift by five.</span>
-      </div>
-
-      <div class="greveal" id="g-reveal" role="status">
-        <b id="g-verdict"></b>
-        <p id="g-line" style="font-size:15.5px;margin-top:8px"></p>
-        <span class="stat-sub" id="g-stats"></span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================ 4 · THE QUESTION -->
 <section id="question" class="body">
@@ -776,40 +666,52 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
         and define what finished actually means. None of that is typing, and none of it is
         reviewing diffs.</p>
 
-      <p>The research is fairly consistent that these habits do not arrive with the tool.
+      <p>The research and first hand experience is consistent that these habits do not arrive with the tool.
         Developers using code-generation systems save effort in one place and spend it again on
         understanding, debugging and validating what came back (Vaithilingam et al., 2022;
         Mozannar et al., 2024). A survey of <span data-n="liangN"></span> developers found the
         recurring complaint was not
-        capability but control &mdash; getting output that satisfies real requirements
+        capability but control, having to arm wrestle to get outputs that satisfy real requirements
         (Liang et al., 2024).</p>
 
-      <p>The sharpest result is a security one. In a controlled experiment, participants given an
-        AI assistant wrote less secure code than those without one, and were more confident that
-        their code was secure (Perry et al., 2023). Tool access moved their behaviour and their
-        confidence in opposite directions.</p>
-
-      <p>The productivity evidence pulls both ways, and it is worth being honest about that.
-        Developers with GitHub Copilot finished a standardised task far faster than a control
-        group (Peng et al., 2023). Experienced open-source maintainers working in repositories
-        they knew well took longer with early-2025 tools than without them (Becker et al., 2025).
-        <span class="stat-sub"><span data-n="pengFaster"></span>&#37; faster in Peng et al.
-        (2023) · <span data-n="beckerSlower"></span>&#37; slower in Becker et al. (2025),
-        <span data-n="beckerDevs"></span> developers across <span data-n="beckerTasks"></span>
-        tasks in mature repositories</span></p>
-
-      <p>Both findings are probably true. They describe different tasks, different codebases and
-        different levels of practice with the tool. Which is exactly the gap this study sits in.</p>
-
-      <blockquote class="pull serif">Access to a coding agent and proficiency with one are not
-        the same thing.</blockquote>
-
-      <p>So: can experienced engineers pick up the operational knowledge that agentic work
-        requires from a short, structured program? Not whether they can be taught to code &mdash;
-        they already can &mdash; but whether the specific habits of steering an agent transfer in
-        two weeks. That is the question this evaluation was built to answer, and the honest answer
-        turns out to be partial.</p>
+      <p>So...can experienced engineers pick up the operational knowledge that agentic work
+        requires from a short, structured program? Not whether they can be taught to code but can the specific habits of working with agents transfer in
+        two weeks.</p>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================ 13 · WHY IT MATTERS -->
+<section class="body" style="padding-top:0">
+  <div class="container">
+    <p class="eyebrow fade">Why this matters</p>
+    <h2 class="head fade">Procurement is not proficiency</h2>
+
+    <div class="narrow fade">
+      <p class="lead">Andela's work starts from a skills-first reading of the market: what someone
+        can currently do matters more than a paper resume. Agentic
+        tooling makes that reading harder and more urgent at the same time, because the relevant
+        skill is new enough that almost nobody's résumé contains it or has a way to accuratly reflect it.</p>
+
+      <p>That is the practical shape of talent debt. Organisations buy the licences, announce the
+        rollout, and then discover that the gap between having the agent and getting value from it
+        is a learning gap that nobody budgeted for. It shows up as inconsistent adoption, quiet
+        abandonment, and a small number of enthusiasts whose habits never spread.</p>
+
+        <blockquote class="pull serif">Rolling out a coding agent is a procurement decision. Getting
+          proficiency out of it is a learning decision. The two are routinely confused.</blockquote>
+
+      <p>This study is a modest but concrete data point against that. Two weeks of structure moved
+        assessed knowledge by a meaningful margin, and it moved it most for the people who started
+        furthest behind. It did not move mechanism selection much, which tells you where a second
+        pass should go.</p>
+
+
+
+      <p>If you are funding one and not the other, this study is the argument for funding both.</p>
+    </div>
+
+
   </div>
 </section>
 
@@ -818,8 +720,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
   <div class="container">
     <p class="eyebrow fade">At a glance</p>
     <h2 class="head wide fade">Three findings</h2>
-    <p class="lead narrow fade">Each one is a plain sentence first. The statistics sit underneath,
-      where they belong.</p>
 
     <div class="findgrid">
       <article class="find fade">
@@ -832,8 +732,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
           <span data-n="ciHi"></span>] · <em>p</em> <span data-n="p"></span> · Wilcoxon
           <em>p</em> <span data-n="wilcoxonP"></span> · Cohen's <em>d</em><sub>z</sub> =
           <span data-n="dz"></span> · <em>n</em> = <span data-n="n"></span> paired</span>
-        <div class="caveat">There was no control group. The scores rose; the program is the most
-          likely reason, but this design cannot prove it.</div>
       </article>
 
       <article class="find fade">
@@ -846,10 +744,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
           <span data-n="bMidN"></span> / <span data-n="bHighN"></span> · higher-baseline group
           finished at <span data-n="bHighPost"></span> of 12, leaving
           <span data-n="highHeadroom"></span> items of headroom</span>
-        <div class="caveat">Read this as a fact about the ruler, not about the engineers. The top
-          group was already close to a perfect score before the program began, with barely more
-          than a question of room left on the whole test. This is not evidence that senior
-          engineers gained nothing.</div>
       </article>
 
       <article class="find fade">
@@ -860,26 +754,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
           already understood by almost everyone before the program started.</p>
         <span class="stat-sub">Sandbox constraints +<span data-n="q5d"></span> pp · repository
           guidance +<span data-n="q3d"></span> pp · verification criteria +<span data-n="q2d"></span> pp</span>
-        <div class="caveat">The agent-first operating model &mdash; humans steer, agents execute
-          &mdash; was answered correctly by <b data-n="q7pre"></b>&#37; before instruction and
-          <b data-n="q7post"></b>&#37; after. There was nothing there left to teach.</div>
       </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ 6 · TAKE THE ASSESSMENT -->
-<section id="assessment" class="section-tint">
-  <div class="container">
-    <p class="eyebrow fade">The instrument</p>
-    <h2 class="head wide fade">Take the assessment the cohort took</h2>
-    <p class="lead narrow fade">These are the actual twelve questions, unchanged. Scenario-based,
-      four options, one right answer each. You will get the reasoning after every question &mdash;
-      which the participants did not.</p>
-
-    <div class="quiz fade" id="quiz">
-      <div id="quiz-live" class="vh" aria-live="polite" aria-atomic="true"></div>
-      <div id="quiz-body"></div>
     </div>
   </div>
 </section>
@@ -889,16 +764,15 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
   <div class="container">
     <p class="eyebrow fade">Item level</p>
     <h2 class="head fade">What moved, and what moved backwards</h2>
-    <p class="lead narrow fade">A single average hides almost everything interesting. Twelve
-      questions moved in twelve different ways, and three of them moved the wrong way.</p>
+    <p class="lead narrow fade">A single average hides almost everything interesting and twelve
+      questions move in twelve different ways.</p>
 
     <!-- FIGURE 1 — dumbbell -->
     <figure class="figure fade" id="fig-dumbbell">
       <figcaption>
         <div class="figtitle">Figure 1 · Percentage answering each question correctly, before and after</div>
-        <p class="figsub">Each row is one question. The pale opal dot is where the cohort stood
-          before the program, the emerald dot is where they stood after, and the bar between them
-          is the distance travelled. Three rows run backwards; those bars are sienna. Select any
+        <p class="figsub">Each row is one question with the pale opal dot showing where the cohort stood
+          before the program, the emerald dot is where they stood after. Select any
           row to read the question and its answer.</p>
       </figcaption>
       <div class="ctrlrow">
@@ -919,38 +793,26 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
         <span><i class="sq" style="background:var(--loss)"></i>Moved backward</span>
       </div>
       <p class="cap">Percentages are the share of the <b data-n="n"></b> paired participants
-        answering correctly. Deltas are in percentage points. Source: whitepaper Appendix A.</p>
+        answering correctly and deltas are in percentage points.</p>
       <div class="vh" id="db-table"></div>
     </figure>
 
     <div class="narrow fade" style="margin-top:52px">
-      <h3 class="sub">A net gain hides a lot of churn</h3>
-      <p>Averages move smoothly. People do not. On the question about keeping repository guidance
-        lean, thirteen participants who had it wrong got it right, and not one person went the
-        other way &mdash; that is a clean, one-directional shift, and it is what learning is
-        supposed to look like.</p>
-      <p>On the question about where durable team knowledge should live, four people got it right
-        who had not before, and seven got it wrong who previously had. The net figure for that
-        question is a small decline. The underlying movement is eleven people changing their minds,
-        most of them away from the correct answer.</p>
-      <span class="stat-sub">Q3 repository-guidance hygiene: <span data-n="q3wc"></span> improved,
-        <span data-n="q3cw"></span> declined · Q12 durable source-of-truth context:
-        <span data-n="q12wc"></span> improved, <span data-n="q12cw"></span> declined</span>
-      <p style="margin-top:20px">This is the paper's real observation, and it is more useful than
-        the headline number. Strategic understanding and operational judgement develop at different
-        rates. If you have just taken the test, you probably felt it: the questions about what to
-        believe were easy, and the questions about which mechanism to reach for were not.</p>
+      <h3 class="sub">Interpretation</h3>
+      <p>We found that the pattern of gains is as important as the overall score change. The largest improvements concerned the environment around the agent: context hygiene, verification, execution constraints, isolated parallel work, and team configuration. Participants already performed well on the broad agent-first principle that humans should specify intent and verify outcomes while agents execute appropriate tasks but their remaining difficulty emerged when multiple agentic mechanisms appeared plausible. This distinction suggests that strategic understanding and operational judgment develop at different rates.</p>
+      <p>The baseline-group results also offered an interesting insight. Participants entering with the lowest assessment scores improved most, while the highest group changed little. A plausible interpretation is that the program helped establish a more consistent foundation among learners with limited initial knowledge. However, the fixed 12-item scale offered less headroom to high scorers and may have been insufficiently difficult to detect advanced learning.</p>
+      <p style="margin-top:20px"><b>TLDR;</b> strategic understanding and operational judgement develop at different
+        rates. If you have just taken the test, you probably felt it: the questions about what an agent is or does are easy but the questions about which mechanisms to reach for and were not.</p>
     </div>
 
     <!-- FIGURE 2 — dot matrix -->
     <figure class="figure fade" id="fig-matrix">
       <figcaption>
-        <div class="figtitle">Figure 2 · Every participant, on every question</div>
-        <p class="figsub">Twelve rows of <b data-n="n"></b> dots &mdash; <b data-n="cells"></b> in
-          all, one for each person on each question. Solid emerald means someone got it right who
+        <div class="figtitle">Figure 2 · Individual results per question</div>
+        <p class="figsub">Twelve rows of <b data-n="n"></b> dots, one for each person on each question. Every column is the same participant throughout, so
+          the figure can be read across a question or down a person. Solid emerald means someone got it right who
           had not before. Solid sienna means the reverse. The pale dots either side were already
-          right or still wrong both times. Every column is the same participant throughout, so
-          the figure can be read across a question or down a person.</p>
+          right or still wrong both times. </p>
       </figcaption>
       <div class="ctrlrow">
         <span class="ctrllab" id="dm-viewlab">View</span>
@@ -971,9 +833,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
       <p class="cap"><b>Each column is one participant, in the same order in every row.</b>
         Read a column downwards to follow one person through all twelve questions. Columns are
         ordered by total gain, largest first, so the people the program moved most are on the left
-        and the five who finished lower than they started are on the right. Built from
-        participant-level records; no identifiers are included, and the order was fixed once and
-        carries nothing but the gain it is sorted on.</p>
+        and the five who finished lower than they started are on the right. </p>
     </figure>
   </div>
 </section>
@@ -981,17 +841,15 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
 <!-- ============================================================ 8 · THE BASELINE PARADOX -->
 <section id="baseline" class="section-alt body">
   <div class="container">
-    <p class="eyebrow fade">The baseline paradox</p>
+    <p class="eyebrow fade">Overall Gains</p>
     <h2 class="head fade">The strongest starters barely moved</h2>
-    <p class="lead narrow fade">Split the cohort by where they started and the gains fall away
-      almost perfectly as the starting score rises. That looks like a story about who benefits
-      from training. It is mostly a story about the test.</p>
+    <p class="lead narrow fade">As to be expected, the individuals that started with the highest scores barely moved. However, those with low scores did gain significantly showing that short, structured learnings can improve the overall baseline of an engineering organization.</p>
 
     <figure class="figure fade" id="fig-slopes">
       <figcaption>
         <div class="figtitle">Figure 3 · Mean score before and after, by starting group</div>
-        <p class="figsub">Three heavy lines on a twelve-point scale, one per group, each taking
-          its colour from the card beneath it. Behind them, faint, are the <b data-n="n"></b>
+        <p class="figsub">Three heavy lines on a twelve-point scale, one per group, matching
+          its colour from the card beneath it. Behind them are the <b data-n="n"></b>
           individual trajectories they average; where several people took the same path the lines
           stack and the colour deepens. Turn on the headroom shading to see how much of the test
           each group still had available to gain.</p>
@@ -1005,30 +863,13 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
         <div class="slopes" id="slopes"></div>
       </div>
       <div class="slopekey" id="slopekey"></div>
-      <p class="cap">Groups were assigned after the fact from pre-program score and were not
-        prespecified. Group means are the whitepaper's Table 2; the individual lines behind them
-        are the participant records, drawn without jitter, so identical journeys overlap exactly
-        rather than being nudged apart into scores nobody had.</p>
       <div class="vh" id="slope-table"></div>
     </figure>
 
     <div class="narrow fade" style="margin-top:44px">
       <p>The group that started at nine or above finished barely more than a question short of a
-        perfect score. That is all the improvement the test had left to offer them &mdash; and some
-        of even that was out of reach, because the two questions the whole cohort found hardest sit
-        inside it. A flat line under those conditions is close to uninformative.</p>
-      <span class="stat-sub">Higher-baseline group: <em>n</em> = <span data-n="bHighN"></span>,
-        mean pre <span data-n="bHighPre"></span>, mean post <span data-n="bHighPost"></span>,
-        mean gain +<span data-n="bHighGain"></span> · remaining headroom
-        <span data-n="highHeadroom"></span> of 12 items</span>
-      <p style="margin-top:20px">The lower-baseline group had six and a half questions of room and
-        used about half of it. That is a real gain and the cleanest signal in the study. But the
-        comparison between the groups is not a fair fight, because the instrument does not offer
-        them the same distance to run.</p>
-      <p><b>This result should not be read as &ldquo;experienced engineers gained nothing.&rdquo;</b>
-        It should be read as: this test could not detect what they gained. Measuring advanced
-        agentic practice needs a harder ruler than twelve multiple-choice items, and building one
-        is the obvious next piece of work.</p>
+        perfect score. That is all the improvement the test had left to offer them and is key learning about the course curriculum. We can also interpre this result as showing that generic, one size fits all learning program are not sufficent in improving more senior engineers. Having a process to to understand where an engineer's skills current lie and offering tailored training is a better way to show overall improvemtns similar to the gains the lower starters showed in this program.</p>
+
     </div>
   </div>
 </section>
@@ -1038,48 +879,42 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
   <div class="container">
     <p class="eyebrow fade">Persistent difficulty</p>
     <h2 class="head fade">Three questions that stayed hard</h2>
-    <p class="lead narrow fade">These are the three lowest scores after the program &mdash; the
-      places where two weeks of instruction did not settle the matter.</p>
-
-    <div class="narrow fade">
-      <p>Two separate things are worth keeping apart here, because they overlap and get
-        conflated. One is which questions were still hardest at the end. The other is which
-        questions moved backwards.</p>
-      <p><b>Still hardest after training:</b> durable source-of-truth context, CI security-review
-        integration, and specialized agent roles.
-        <span class="stat-sub">Post-program correctness: <span data-n="q12post"></span>&#37; ·
-          <span data-n="q10post"></span>&#37; · <span data-n="q6post"></span>&#37;</span></p>
-      <p><b>Actually got worse:</b> those first two, plus the question about UI observation tools.
-        The UI question fell from near-universal to slightly-less-than-universal, which is ceiling
-        noise on a question almost everyone already had right &mdash; two people changed their
-        answer. It does not belong in a story about difficulty, and it is not treated as one below.
-        <span class="stat-sub">Q9 UI observation tools: <span data-n="q9pre"></span>&#37; &rarr;
-          <span data-n="q9post"></span>&#37;, <span data-n="q9cw"></span> participants moved from
-          correct to incorrect, <span data-n="q9wc"></span> moved the other way</span></p>
-      <p>So the hard set is Q12, Q10 and Q6. Play them.</p>
-    </div>
+    <p class="lead narrow fade">These are the three lowest scores after the program.</p>
 
     <div class="hardgrid" id="hardcards"></div>
 
     <div class="narrow fade" style="margin-top:52px">
       <h3 class="sub">Why these three and not others</h3>
-      <p>Look at what they have in common. Every one of them asks you to choose between adjacent
+      <p>All three of these have something in common...every one of them asks you to choose between adjacent
         plausible mechanisms. An MCP connector or a markdown file checked into the repository. The
         SDK, or a scheduled automation, or a packaged skill. A specialized agent role, or the
         default one with better prompting.</p>
-      <p>There is no silly option to eliminate. All four answers describe something a competent
+      <p>All four answers describe something a competent
         engineer might actually build, and three of them would half-work. The question is not
-        whether you understand the principle &mdash; the cohort demonstrably did &mdash; but
-        whether you know which lever this particular situation calls for.</p>
+        whether someone understands the principle, the cohort demonstrably did, but
+        whether someone knows which lever a particular situation calls for.</p>
       <blockquote class="pull serif">Knowing the principle does not tell you which lever to pull.</blockquote>
-      <p>That is the distinction the data keeps drawing. Strategic framing transferred in two
-        weeks, and mechanism selection did not. It is also the part of agentic engineering that
+      <p>Now this is very imporant, it shows that strategic framing transferred in two
+        weeks but mechanism selection did not. It's the part of agentic engineering that
         looks most like ordinary senior judgement: knowing which of several defensible tools fits
         the shape of the problem, which is learned mostly by doing it wrong a few times.</p>
-      <p>If you are designing a curriculum from this, the implication is fairly direct. The
-        conceptual material can be taught quickly and probably does not need four live hours. The
-        mechanism-selection material needs repetition against real cases, and two weeks was not
-        enough of it.</p>
+      <p>The question now is where should this mechanism learning come from? It's hard to answer but it a place to start is with an organizations AI policies. An organization for instance could MCP is only users here or that AGENTS.md are always structured like X. It's not a perfect answer and given that agentic engineering is so new, a lot of these machanism best practices will become more standard over time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 6 · TAKE THE ASSESSMENT -->
+<section id="assessment" class="section-tint">
+  <div class="container">
+    <p class="eyebrow fade">The instrument</p>
+    <h2 class="head wide fade">Curious to see how you would do? <br> Take the assessment yourself.</h2>
+    <p class="lead narrow fade">These are the actual twelve questions, unchanged. Scenario-based,
+      four options, one right answer each. You will get the reasoning after every question,
+      which the participants did not.</p>
+
+    <div class="quiz fade" id="quiz">
+      <div id="quiz-live" class="vh" aria-live="polite" aria-atomic="true"></div>
+      <div id="quiz-body"></div>
     </div>
   </div>
 </section>
@@ -1100,10 +935,10 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
       <div class="step"><span class="n">3</span><span><b>Four one-hour live sessions</b>
         Two per module, run as concept &rarr; demonstration &rarr; practice &rarr; support, with
         live demos, guided exercises and troubleshooting.</span></div>
-      <div class="step"><span class="n">4</span><span><b>Module 1 &mdash; Codex foundations</b>
+      <div class="step"><span class="n">4</span><span><b>Module 1: Codex Foundations</b>
         Setup, the agent loop, prompt and context design, planning, verification criteria,
         repository guidance, and common development workflows.</span></div>
-      <div class="step"><span class="n">5</span><span><b>Module 2 &mdash; advanced workflows</b>
+      <div class="step"><span class="n">5</span><span><b>Module 2: Advanced Workflows</b>
         Configuration, permissions and sandboxing, reusable skills, Model Context Protocol
         connections, automations, memory, parallel work, code review, and long-horizon execution.</span></div>
       <div class="step"><span class="n">6</span><span><b>A required quiz per module</b>
@@ -1122,10 +957,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
 <section id="limits" class="body">
   <div class="container">
     <p class="eyebrow fade">Limitations</p>
-    <h2 class="head fade">What this does not claim</h2>
-    <p class="lead narrow fade">Six of them, in rough order of how much they should change your
-      reading.</p>
-
+    <h2 class="head wide fade">What this report does not claim</h2>
+    <p class="lead narrow fade">The learning program itself was the primary goal and this study was done as an ancellary effort.</p>
     <div class="limits">
       <div class="lim fade"><span class="dot"></span><div>
         <h4>No control group</h4>
@@ -1175,60 +1008,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',mo
   </div>
 </section>
 
-<!-- ============================================================ 13 · WHY IT MATTERS -->
-<section class="section-dark closing">
-  <div class="container">
-    <p class="eyebrow fade">Why it matters</p>
-    <h2 class="head fade">Procurement is not proficiency</h2>
-
-    <div class="narrow fade">
-      <p class="lead">Andela's work starts from a skills-first reading of the market: what someone
-        can currently do matters more than where they trained or who they last worked for. Agentic
-        tooling makes that reading harder and more urgent at the same time, because the relevant
-        skill is new enough that almost nobody's résumé contains it.</p>
-
-      <p>That is the practical shape of talent debt. Organisations buy the licences, announce the
-        rollout, and then discover that the gap between having the agent and getting value from it
-        is a learning gap that nobody budgeted for. It shows up as inconsistent adoption, quiet
-        abandonment, and a small number of enthusiasts whose habits never spread.</p>
-
-      <p>This study is a modest but concrete data point against that. Two weeks of structure moved
-        assessed knowledge by a meaningful margin, and it moved it most for the people who started
-        furthest behind. It did not move mechanism selection much, which tells you where a second
-        pass should go.</p>
-
-      <blockquote class="pull serif">Rolling out a coding agent is a procurement decision. Getting
-        proficiency out of it is a learning decision. The two are routinely confused.</blockquote>
-
-      <p>If you are funding one and not the other, this page is the argument for funding both.</p>
-    </div>
-
-    <div class="repro fade">
-      <p class="kicker">Reproducibility</p>
-      <p>Paired <em>n</em> = <span data-n="n"></span>, matched on normalized email addresses.
-        Identical 12-item multiple-choice instrument administered pre-program and immediately
-        post-instruction, scored 0&ndash;12. Paired <em>t</em>-test with a Wilcoxon signed-rank
-        robustness check; 95&#37; CI [<span data-n="ciLo"></span>, <span data-n="ciHi"></span>];
-        Cohen's <em>d</em><sub>z</sub> = <span data-n="dz"></span>. Baseline groups were assigned
-        post hoc and were not prespecified. Every figure on this page derives from the whitepaper's
-        Tables 1&ndash;3 and Appendices A and B; the constants are declared once at the top of this
-        page's script and rendered from there rather than typed into the prose.</p>
-      <p>Figure 2, the individual trajectories behind Figure 3, the score distribution in the
-        assessment results, and the answer-by-answer breakdown after each question are drawn from
-        the participant-level response records for the <span data-n="n"></span> matched
-        participants. Those records also reproduce every figure in Tables 1 and 2 and Appendices A
-        and B exactly, which is the check the page runs against them; where the two could ever
-        disagree, the published value is the one shown. Which option each participant chose and how
-        long they spent per question were not part of the paper, and are the only things on this
-        page that go beyond it.</p>
-      <p>No participant identifiers appear anywhere in this file. The page makes no network
-        requests, sets no cookies, and sends nothing anywhere; your assessment answers stay in your
-        own browser. Body text renders in Georgia where Droid Serif is unavailable, since the page
-        is built to work offline and does not load remote fonts.</p>
-      <p><a href="Can-Short-Structured-Training-Improve-Applied-Agentic-Engineering-Knowledge.md">Read the full whitepaper &rarr;</a></p>
-    </div>
-  </div>
-</section>
 </main>
 
 <!-- ============================================================ 14 · FOOTER -->
@@ -2948,85 +2727,6 @@ function renderHardCards() {
 <script>
 "use strict";
 /* ================================================================================
-   GUESS THE GAIN (7.1)
-   The rail is 0-100 but the input covers only 40-100, so every marker is placed
-   with the same mapping the native thumb uses. THUMB is the thumb width from CSS;
-   half of it is the inset at each end of the input's travel.
-   ================================================================================ */
-var GMIN = 40, GMAX = 100, THUMB = 26;
-
-function gpos(v) {
-  var k = (Math.min(GMAX, Math.max(GMIN, v)) - GMIN) / (GMAX - GMIN);
-  return 'calc(40% + ' + (THUMB / 2) + 'px + (60% - ' + THUMB + 'px) * ' + k.toFixed(5) + ')';
-}
-
-function initGuess() {
-  var range = $('#g-range'), youLab = $('#g-youlab');
-  var pre = SUMMARY.meanPct.pre, post = SUMMARY.meanPct.post;
-
-  $('#g-ticks').innerHTML = [40, 55, 70, 85, 100].map(function (v) {
-    return '<span class="gtick' + (v === 55 || v === 85 ? ' mid' : '') + '" style="left:' +
-           gpos(v) + '">' + v + '%</span>';
-  }).join('');
-
-  $('#g-pre').style.left = gpos(pre);
-  $('#g-post').style.left = gpos(post);
-  $('#g-pre .lab').innerHTML = 'Before<span class="pct"> &middot; ' + f1(pre) + '%</span>';
-  $('#g-post .lab').innerHTML = 'After<span class="pct"> &middot; ' + f1(post) + '%</span>';
-
-  range.value = String(Math.round(pre));       /* no anchoring hint beyond the known baseline */
-  var sync = function () {
-    var v = parseInt(range.value, 10);
-    youLab.style.left = gpos(v);
-    youLab.className = 'gyoulab' + (v >= 92 ? ' at-end' : (v <= 47 ? ' at-start' : ''));
-    youLab.textContent = 'Your guess · ' + v + '%';
-    range.setAttribute('aria-valuetext', v + ' percent');
-  };
-  sync();
-  range.addEventListener('input', sync);
-  /* Shift-arrow gives a five-point nudge; the native step is one. */
-  range.addEventListener('keydown', function (e) {
-    if (!e.shiftKey) return;
-    var d = 0;
-    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') d = 5;
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') d = -5;
-    if (!d) return;
-    e.preventDefault();
-    range.value = String(Math.min(GMAX, Math.max(GMIN, parseInt(range.value, 10) + d)));
-    sync();
-  });
-
-  var shown = false;
-  $('#g-show').addEventListener('click', function () {
-    if (shown) return;
-    shown = true;
-    var guess = parseInt(range.value, 10);
-    var diff = Math.abs(guess - post);
-    var verdict;
-    if (diff <= 2) verdict = 'Almost exactly right.';
-    else if (diff <= 6) verdict = 'Close.';
-    else if (guess < post) verdict = 'You underestimated it.';
-    else verdict = 'You expected more than we found.';
-
-    $('#g-post').classList.add('on');
-    $('#g-verdict').textContent = verdict;
-    $('#g-line').innerHTML = 'The cohort finished at <b>' + f1(post) + '%</b>, up from ' + f1(pre) +
-      '%. You guessed ' + guess + '%. Two weeks of instruction was worth about ' +
-      signed(SUMMARY.meanPct.deltaPp) + ' percentage points on this test &mdash; a little over one ' +
-      'question in twelve.';
-    $('#g-stats').innerHTML = signed(SUMMARY.meanPct.deltaPp) + ' pp &middot; 95% CI [' +
-      f1(SUMMARY.ci[0]) + ', ' + f1(SUMMARY.ci[1]) + '] &middot; <em>p</em> ' + SUMMARY.p +
-      ' &middot; Cohen&rsquo;s <em>d</em><sub>z</sub> = ' + f2(SUMMARY.dz) + ' &middot; <em>n</em> = ' +
-      SUMMARY.nPaired + ' paired';
-    $('#g-reveal').classList.add('on');
-    $('#g-show').disabled = true;
-    $('#g-show').textContent = 'Shown';
-  });
-}
-</script>
-<script>
-"use strict";
-/* ================================================================================
    BOOT
    ================================================================================ */
 (function () {
@@ -3058,7 +2758,6 @@ function initGuess() {
   initHeadroom();
   renderHardCards();
 
-  initGuess();
   initFade();
 
   window.addEventListener('scroll', tipHide, { passive: true });
