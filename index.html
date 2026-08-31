@@ -510,7 +510,6 @@ p+p{margin-top:17px}
    ============================================================ */
 .slopes{margin-top:22px}
 .slopes svg{display:block;width:100%;height:auto;min-width:0}
-.slopewrap{max-width:760px}
 .headroom{opacity:0;transition:opacity .35s ease}
 .headroom.on{opacity:1}
 .slopekey{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:22px}
@@ -2553,16 +2552,26 @@ function initMatrixToggle() {
 
 /* ------------------------------------------------------------------ 7.5 SLOPES */
 var HEADROOM = false;
+var SLOPE_W = 0;
+var slopeRT = null;
 
 function renderSlopes() {
   /* Layout note: the three post-program means are only 1.6 items apart, so nothing
      legible fits in a right-hand label column. Group identity comes from line colour,
      matched by the key cards directly beneath; the SVG carries values only, and the
      right margin is reserved for the headroom columns. */
-  var W = 760, H = 400, T = 44, B = 58, L = 60, R = 60;
+  /* The drawing is generated at the container's own pixel width rather than at a fixed
+     760 and scaled by the viewBox, so type and stroke weights render at the sizes they
+     are written at, on every viewport. Height grows with width so the slopes keep their
+     angle instead of flattening into a wide, low band. */
+  var host = $('#slopes');
+  var W = Math.max(560, Math.min(1180, (host && host.clientWidth) || 760));
+  var H = Math.max(400, Math.min(520, Math.round(W * 0.46)));
+  var T = 44, B = 58, L = 60;
+  SLOPE_W = W;
   var maxI = SUMMARY.maxItems;
   var y = function (v) { return T + (1 - v / maxI) * (H - T - B); };
-  var xPre = 130, xPost = 630, xGrid = 714;
+  var xGrid = W - 46, xPost = xGrid - 84, xPre = L + 70;
   var colors = { low: 'var(--gain)', mid: 'var(--teal)', high: 'var(--flat)' };
   var strokes = { low: 4, mid: 3, high: 2.5 };
   var valueFill = { low: 'var(--accent-text)', mid: 'var(--teal)', high: 'var(--dark-green-black)' };
@@ -2606,11 +2615,12 @@ function renderSlopes() {
 
   /* Headroom columns: one per group, immediately right of the after point, each
      running from that group's post score up to the ceiling. */
+  var hrX0 = xPost + 10;
   s += '<g class="headroom' + (HEADROOM ? ' on' : '') + '" id="hr-g">';
   BASELINE.forEach(function (b, i) {
     /* Labels alternate between two rows: at 24px pitch three of them will not fit
        side by side on one line. */
-    var top = y(maxI), bot = y(b.post), x0 = 640 + i * 24;
+    var top = y(maxI), bot = y(b.post), x0 = hrX0 + i * 24;
     s += '<rect x="' + x0 + '" y="' + top + '" width="18" height="' + (bot - top) + '" ' +
          'fill="' + colors[b.key] + '" opacity="0.3" stroke="' + colors[b.key] +
          '" stroke-width="1" stroke-opacity="0.55"/>' +
@@ -2618,7 +2628,7 @@ function renderSlopes() {
          'font-size="10.5" fill="var(--sub)" font-family="var(--sans)" font-weight="700">' +
          f2(maxI - b.post) + '</text>';
   });
-  s += '<text x="' + (640 + 36) + '" y="' + (H - 22) + '" text-anchor="middle" font-size="10.5" ' +
+  s += '<text x="' + (hrX0 + 36) + '" y="' + (H - 22) + '" text-anchor="middle" font-size="10.5" ' +
        'fill="var(--sub)" font-family="var(--sans)" font-weight="700">LEFT</text></g>';
 
   BASELINE.forEach(function (b) {
@@ -2642,7 +2652,7 @@ function renderSlopes() {
        '<text x="' + (L - 12) + '" y="' + (H - 22) + '" text-anchor="end" font-size="11" ' +
        'fill="var(--sub)" font-family="var(--sans)">items</text>';
 
-  $('#slopes').innerHTML = s + '</svg>';
+  host.innerHTML = s + '</svg>';
 
   var k = '';
   BASELINE.forEach(function (b) {
@@ -2662,6 +2672,20 @@ function renderSlopes() {
          '</td></tr>';
   });
   $('#slope-table').innerHTML = t + '</tbody></table>';
+}
+
+/* Redraw only when the available width actually changes: on mobile, scrolling alone fires
+   resize as the address bar collapses, and the height is derived from the width anyway. */
+function initSlopeResize() {
+  window.addEventListener('resize', function () {
+    if (slopeRT) clearTimeout(slopeRT);
+    slopeRT = setTimeout(function () {
+      var host = $('#slopes');
+      if (!host || !host.clientWidth) return;
+      var w = Math.max(560, Math.min(1180, host.clientWidth));
+      if (w !== SLOPE_W) renderSlopes();
+    }, 150);
+  }, { passive: true });
 }
 
 function initHeadroom() {
@@ -2756,6 +2780,7 @@ function renderHardCards() {
   initMatrixToggle();
   renderSlopes();
   initHeadroom();
+  initSlopeResize();
   renderHardCards();
 
   initFade();
